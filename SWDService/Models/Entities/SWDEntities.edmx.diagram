@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="046713dc98d74e2c87334e332696233b" Name="Diagram1" ZoomLevel="77">
+        <EntityTypeShape EntityType="HmsEntities.GroupMembershipCard" Width="1.5" PointX="3" PointY="108.375" />
+        <AssociationConnector Association="HmsEntities.FK_GroupMembershipCard_Brand" />
+        <AssociationConnector Association="HmsEntities.FK_MembershipCard_GroupMembershipCard" />
+        <EntityTypeShape EntityType="HmsEntities.tbAppointment" Width="1.5" PointX="9.75" PointY="9.25" />
+        <EntityTypeShape EntityType="HmsEntities.tbAppointmentStatu" Width="1.5" PointX="7.5" PointY="5.875" />
+        <EntityTypeShape EntityType="HmsEntities.tbCustomer" Width="1.5" PointX="3" PointY="6.625" />
+        <EntityTypeShape EntityType="HmsEntities.tbPromotion" Width="1.5" PointX="7.5" PointY="15.5" />
+        <EntityTypeShape EntityType="HmsEntities.tbReview" Width="1.5" PointX="7.5" PointY="8.625" />
+        <EntityTypeShape EntityType="HmsEntities.tbRole" Width="1.5" PointX="0.75" PointY="7.25" />
+        <EntityTypeShape EntityType="HmsEntities.tbSession" Width="1.5" PointX="7.5" PointY="12" />
+        <EntityTypeShape EntityType="HmsEntities.tbStore" Width="1.5" PointX="5.25" PointY="12.75" />
+        <AssociationConnector Association="HmsEntities.FK__tbAppoint__CPhon__37A5467C" />
+        <AssociationConnector Association="HmsEntities.FK__tbAppointm__ASID__38996AB5" />
+        <AssociationConnector Association="HmsEntities.FK__tbAppointm__SsID__36B12243" />
+        <AssociationConnector Association="HmsEntities.FK__tbCustome__RoleI__2F10007B" />
+        <AssociationConnector Association="HmsEntities.FK__tbReview__CPhone__32E0915F" />
+        <AssociationConnector Association="HmsEntities.FK__tbStore__CPhone__300424B4" />
+        <AssociationConnector Association="HmsEntities.FK__tbPromotion__SID__34C8D9D1" />
+        <AssociationConnector Association="HmsEntities.FK__tbReview__SID__33D4B598" />
+        <AssociationConnector Association="HmsEntities.FK__tbSession__SID__35BCFE0A" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,247 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="HmsEntities.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="tbAppointment">
+    <Key>
+      <PropertyRef Name="AID" />
+    </Key>
+    <Property Name="AID" Type="int" Nullable="false" />
+    <Property Name="SsID" Type="int" />
+    <Property Name="ASID" Type="int" />
+    <Property Name="CPhone" Type="varchar" MaxLength="10" />
+    <Property Name="BookedDay" Type="datetime" />
+    <Property Name="StartTime" Type="datetime" />
+    <Property Name="ACapital" Type="int" />
+  </EntityType>
+  <EntityType Name="tbAppointmentStatus">
+    <Key>
+      <PropertyRef Name="ASID" />
+    </Key>
+    <Property Name="ASID" Type="int" Nullable="false" />
+    <Property Name="ASName" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="tbCustomer">
+    <Key>
+      <PropertyRef Name="CPhone" />
+    </Key>
+    <Property Name="CPhone" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="CPassword" Type="nvarchar" MaxLength="16" />
+    <Property Name="CName" Type="nvarchar" MaxLength="50" />
+    <Property Name="CEmail" Type="nvarchar" MaxLength="50" />
+    <Property Name="RoleID" Type="int" />
+  </EntityType>
+  <EntityType Name="tbPromotion">
+    <Key>
+      <PropertyRef Name="PID" />
+    </Key>
+    <Property Name="PID" Type="int" Nullable="false" />
+    <Property Name="SID" Type="int" />
+    <Property Name="PImage" Type="nvarchar" MaxLength="200" />
+    <Property Name="PName" Type="nvarchar" MaxLength="100" />
+    <Property Name="StartDay" Type="datetime" />
+    <Property Name="EndDay" Type="datetime" />
+    <Property Name="PDescription" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="tbReview">
+    <Key>
+      <PropertyRef Name="RID" />
+    </Key>
+    <Property Name="RID" Type="varchar" MaxLength="5" Nullable="false" />
+    <Property Name="CPhone" Type="varchar" MaxLength="10" />
+    <Property Name="SID" Type="int" />
+    <Property Name="Date" Type="datetime" />
+    <Property Name="RatingNumber" Type="float" />
+    <Property Name="Comment" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="tbRole">
+    <Key>
+      <PropertyRef Name="RoleID" />
+    </Key>
+    <Property Name="RoleID" Type="int" Nullable="false" />
+    <Property Name="RoleName" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="tbSession">
+    <Key>
+      <PropertyRef Name="SsID" />
+    </Key>
+    <Property Name="SsID" Type="int" Nullable="false" />
+    <Property Name="SID" Type="int" />
+    <Property Name="Capital" Type="int" />
+    <Property Name="Available" Type="int" />
+    <Property Name="DayCreate" Type="datetime" />
+    <Property Name="StartTime" Type="time" Precision="7" />
+    <Property Name="EndTime" Type="time" Precision="7" />
+  </EntityType>
+  <EntityType Name="tbStore">
+    <Key>
+      <PropertyRef Name="SID" />
+    </Key>
+    <Property Name="SID" Type="int" Nullable="false" />
+    <Property Name="SPhone" Type="nvarchar" MaxLength="10" />
+    <Property Name="SName" Type="nvarchar" MaxLength="50" />
+    <Property Name="SAddress" Type="nvarchar" MaxLength="50" />
+    <Property Name="PriceAvg" Type="nvarchar" MaxLength="50" />
+    <Property Name="SDescription" Type="nvarchar(max)" />
+    <Property Name="Latitude" Type="nvarchar" MaxLength="15" />
+    <Property Name="Longtitude" Type="nvarchar" MaxLength="15" />
+    <Property Name="StartTime" Type="time" Precision="7" />
+    <Property Name="CloseTime" Type="time" Precision="7" />
+    <Property Name="SCapital" Type="int" />
+    <Property Name="SImage" Type="nvarchar" MaxLength="200" />
+    <Property Name="CPhone" Type="varchar" MaxLength="10" />
+    <Property Name="NumberStar" Type="float" />
+  </EntityType>
+  <Association Name="FK__tbAppoint__CPhon__37A5467C">
+    <End Role="tbCustomer" Type="Self.tbCustomer" Multiplicity="0..1" />
+    <End Role="tbAppointment" Type="Self.tbAppointment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbCustomer">
+        <PropertyRef Name="CPhone" />
+      </Principal>
+      <Dependent Role="tbAppointment">
+        <PropertyRef Name="CPhone" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tbAppointm__ASID__38996AB5">
+    <End Role="tbAppointmentStatus" Type="Self.tbAppointmentStatus" Multiplicity="0..1" />
+    <End Role="tbAppointment" Type="Self.tbAppointment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbAppointmentStatus">
+        <PropertyRef Name="ASID" />
+      </Principal>
+      <Dependent Role="tbAppointment">
+        <PropertyRef Name="ASID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tbAppointm__SsID__36B12243">
+    <End Role="tbSession" Type="Self.tbSession" Multiplicity="0..1" />
+    <End Role="tbAppointment" Type="Self.tbAppointment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbSession">
+        <PropertyRef Name="SsID" />
+      </Principal>
+      <Dependent Role="tbAppointment">
+        <PropertyRef Name="SsID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tbCustome__RoleI__2F10007B">
+    <End Role="tbRole" Type="Self.tbRole" Multiplicity="0..1" />
+    <End Role="tbCustomer" Type="Self.tbCustomer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbRole">
+        <PropertyRef Name="RoleID" />
+      </Principal>
+      <Dependent Role="tbCustomer">
+        <PropertyRef Name="RoleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tbPromotion__SID__34C8D9D1">
+    <End Role="tbStore" Type="Self.tbStore" Multiplicity="0..1" />
+    <End Role="tbPromotion" Type="Self.tbPromotion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbStore">
+        <PropertyRef Name="SID" />
+      </Principal>
+      <Dependent Role="tbPromotion">
+        <PropertyRef Name="SID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tbReview__CPhone__32E0915F">
+    <End Role="tbCustomer" Type="Self.tbCustomer" Multiplicity="0..1" />
+    <End Role="tbReview" Type="Self.tbReview" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbCustomer">
+        <PropertyRef Name="CPhone" />
+      </Principal>
+      <Dependent Role="tbReview">
+        <PropertyRef Name="CPhone" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tbReview__SID__33D4B598">
+    <End Role="tbStore" Type="Self.tbStore" Multiplicity="0..1" />
+    <End Role="tbReview" Type="Self.tbReview" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbStore">
+        <PropertyRef Name="SID" />
+      </Principal>
+      <Dependent Role="tbReview">
+        <PropertyRef Name="SID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tbSession__SID__35BCFE0A">
+    <End Role="tbStore" Type="Self.tbStore" Multiplicity="0..1" />
+    <End Role="tbSession" Type="Self.tbSession" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbStore">
+        <PropertyRef Name="SID" />
+      </Principal>
+      <Dependent Role="tbSession">
+        <PropertyRef Name="SID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tbStore__CPhone__300424B4">
+    <End Role="tbCustomer" Type="Self.tbCustomer" Multiplicity="0..1" />
+    <End Role="tbStore" Type="Self.tbStore" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbCustomer">
+        <PropertyRef Name="CPhone" />
+      </Principal>
+      <Dependent Role="tbStore">
+        <PropertyRef Name="CPhone" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="HmsEntitiesStoreContainer">
+    <EntitySet Name="tbAppointment" EntityType="Self.tbAppointment" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbAppointmentStatus" EntityType="Self.tbAppointmentStatus" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbCustomer" EntityType="Self.tbCustomer" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbPromotion" EntityType="Self.tbPromotion" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbReview" EntityType="Self.tbReview" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbRole" EntityType="Self.tbRole" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbSession" EntityType="Self.tbSession" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbStore" EntityType="Self.tbStore" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__tbAppoint__CPhon__37A5467C" Association="Self.FK__tbAppoint__CPhon__37A5467C">
+      <End Role="tbCustomer" EntitySet="tbCustomer" />
+      <End Role="tbAppointment" EntitySet="tbAppointment" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tbAppointm__ASID__38996AB5" Association="Self.FK__tbAppointm__ASID__38996AB5">
+      <End Role="tbAppointmentStatus" EntitySet="tbAppointmentStatus" />
+      <End Role="tbAppointment" EntitySet="tbAppointment" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tbAppointm__SsID__36B12243" Association="Self.FK__tbAppointm__SsID__36B12243">
+      <End Role="tbSession" EntitySet="tbSession" />
+      <End Role="tbAppointment" EntitySet="tbAppointment" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tbCustome__RoleI__2F10007B" Association="Self.FK__tbCustome__RoleI__2F10007B">
+      <End Role="tbRole" EntitySet="tbRole" />
+      <End Role="tbCustomer" EntitySet="tbCustomer" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tbPromotion__SID__34C8D9D1" Association="Self.FK__tbPromotion__SID__34C8D9D1">
+      <End Role="tbStore" EntitySet="tbStore" />
+      <End Role="tbPromotion" EntitySet="tbPromotion" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tbReview__CPhone__32E0915F" Association="Self.FK__tbReview__CPhone__32E0915F">
+      <End Role="tbCustomer" EntitySet="tbCustomer" />
+      <End Role="tbReview" EntitySet="tbReview" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tbReview__SID__33D4B598" Association="Self.FK__tbReview__SID__33D4B598">
+      <End Role="tbStore" EntitySet="tbStore" />
+      <End Role="tbReview" EntitySet="tbReview" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tbSession__SID__35BCFE0A" Association="Self.FK__tbSession__SID__35BCFE0A">
+      <End Role="tbStore" EntitySet="tbStore" />
+      <End Role="tbSession" EntitySet="tbSession" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tbStore__CPhone__300424B4" Association="Self.FK__tbStore__CPhone__300424B4">
+      <End Role="tbCustomer" EntitySet="tbCustomer" />
+      <End Role="tbStore" EntitySet="tbStore" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="HmsEntitiesStoreContainer" CdmEntityContainer="Entities">
+    <EntitySetMapping Name="tbAppointments">
+      <EntityTypeMapping TypeName="HmsEntities.tbAppointment">
+        <MappingFragment StoreEntitySet="tbAppointment">
+          <ScalarProperty Name="ACapital" ColumnName="ACapital" />
+          <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+          <ScalarProperty Name="BookedDay" ColumnName="BookedDay" />
+          <ScalarProperty Name="CPhone" ColumnName="CPhone" />
+          <ScalarProperty Name="ASID" ColumnName="ASID" />
+          <ScalarProperty Name="SsID" ColumnName="SsID" />
+          <ScalarProperty Name="AID" ColumnName="AID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbAppointmentStatus">
+      <EntityTypeMapping TypeName="HmsEntities.tbAppointmentStatu">
+        <MappingFragment StoreEntitySet="tbAppointmentStatus">
+          <ScalarProperty Name="ASName" ColumnName="ASName" />
+          <ScalarProperty Name="ASID" ColumnName="ASID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbCustomers">
+      <EntityTypeMapping TypeName="HmsEntities.tbCustomer">
+        <MappingFragment StoreEntitySet="tbCustomer">
+          <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+          <ScalarProperty Name="CEmail" ColumnName="CEmail" />
+          <ScalarProperty Name="CName" ColumnName="CName" />
+          <ScalarProperty Name="CPassword" ColumnName="CPassword" />
+          <ScalarProperty Name="CPhone" ColumnName="CPhone" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbPromotions">
+      <EntityTypeMapping TypeName="HmsEntities.tbPromotion">
+        <MappingFragment StoreEntitySet="tbPromotion">
+          <ScalarProperty Name="PDescription" ColumnName="PDescription" />
+          <ScalarProperty Name="EndDay" ColumnName="EndDay" />
+          <ScalarProperty Name="StartDay" ColumnName="StartDay" />
+          <ScalarProperty Name="PName" ColumnName="PName" />
+          <ScalarProperty Name="PImage" ColumnName="PImage" />
+          <ScalarProperty Name="SID" ColumnName="SID" />
+          <ScalarProperty Name="PID" ColumnName="PID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbReviews">
+      <EntityTypeMapping TypeName="HmsEntities.tbReview">
+        <MappingFragment StoreEntitySet="tbReview">
+          <ScalarProperty Name="Comment" ColumnName="Comment" />
+          <ScalarProperty Name="RatingNumber" ColumnName="RatingNumber" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="SID" ColumnName="SID" />
+          <ScalarProperty Name="CPhone" ColumnName="CPhone" />
+          <ScalarProperty Name="RID" ColumnName="RID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbRoles">
+      <EntityTypeMapping TypeName="HmsEntities.tbRole">
+        <MappingFragment StoreEntitySet="tbRole">
+          <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+          <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbSessions">
+      <EntityTypeMapping TypeName="HmsEntities.tbSession">
+        <MappingFragment StoreEntitySet="tbSession">
+          <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+          <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+          <ScalarProperty Name="DayCreate" ColumnName="DayCreate" />
+          <ScalarProperty Name="Available" ColumnName="Available" />
+          <ScalarProperty Name="Capital" ColumnName="Capital" />
+          <ScalarProperty Name="SID" ColumnName="SID" />
+          <ScalarProperty Name="SsID" ColumnName="SsID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbStores">
+      <EntityTypeMapping TypeName="HmsEntities.tbStore">
+        <MappingFragment StoreEntitySet="tbStore">
+          <ScalarProperty Name="NumberStar" ColumnName="NumberStar" />
+          <ScalarProperty Name="CPhone" ColumnName="CPhone" />
+          <ScalarProperty Name="SImage" ColumnName="SImage" />
+          <ScalarProperty Name="SCapital" ColumnName="SCapital" />
+          <ScalarProperty Name="CloseTime" ColumnName="CloseTime" />
+          <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+          <ScalarProperty Name="Longtitude" ColumnName="Longtitude" />
+          <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+          <ScalarProperty Name="SDescription" ColumnName="SDescription" />
+          <ScalarProperty Name="PriceAvg" ColumnName="PriceAvg" />
+          <ScalarProperty Name="SAddress" ColumnName="SAddress" />
+          <ScalarProperty Name="SName" ColumnName="SName" />
+          <ScalarProperty Name="SPhone" ColumnName="SPhone" />
+          <ScalarProperty Name="SID" ColumnName="SID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
