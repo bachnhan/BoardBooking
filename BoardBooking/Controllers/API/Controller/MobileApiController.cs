@@ -7,13 +7,28 @@ using Jose;
 using HmsService.Models;
 using HmsService.Sdk;
 using BoardBooking.Controllers.API;
+using BoardBooking.Controllers.API.Controller;
 
 namespace BoardBooking.Controllers
 {
-    public class MobileApiController : ApiController
+    public class MobileApiController : ApiController, MobileApi
     {
         static string secretKey = ConstantManager.PRIVATE_KEY;
         // GET: MobileApi
+        private static string GenerateToken(string CPhone)
+        {
+            var payload = CPhone + ":" + DateTime.Now.Ticks.ToString();
+
+            return JWT.Encode(payload, secretKey, JwsAlgorithm.HS256);
+        }
+
+        private string GetCustomerIdFromToken(string token)
+        {
+            string key = JWT.Decode(token, secretKey);
+            string[] parts = key.Split(new char[] { ':' });
+            return parts[0];
+        }
+
         [HttpGet]
         [Route("api/user-role")]
         public HttpResponseMessage GetUserRole(/*string access_Token*/)
@@ -27,27 +42,52 @@ namespace BoardBooking.Controllers
             {
                 return new HttpResponseMessage
                 {
+                    Content = new JsonContent(new {
+                        success = true,
+                        message = ConstantManager.GET_USER_ROLE_FAIL,
+                        status = ConstantManager.STATUS_SUCCESS
+                    })
                 };
             }
             return new HttpResponseMessage
             {
-                Content = new JsonContent(roleId)
+                Content = new JsonContent(new {
+                    success = true,
+                    message = ConstantManager.GET_USER_ROLE_SUCCESS,
+                    status = ConstantManager.STATUS_SUCCESS,
+                    data = roleId
+                })
             };
         }
 
         [HttpGet]
-        public HttpRequestMessage GetListStore()
+        [Route("api/list-store")]
+        public HttpResponseMessage GetListStore()
         {
             var storeApi = new tbStoreApi();
-            var store = storeApi.Get().ToList(); 
-            //if (store != null)
-            //{
-            //    return new HttpResponseMessage
-            //    {
-            //        Content = new JsonContent(store)
-            //    };
-            //}
-            //return new HttpResponseMessage { };
+            var stores = storeApi.Get().ToList();
+            if (stores == null)
+            {
+                return new HttpResponseMessage
+                {
+                    Content = new JsonContent(new
+                    {
+                        success = true,
+                        message = ConstantManager.GET_LIST_STORE_FAIL,
+                        status = ConstantManager.STATUS_SUCCESS
+                    })
+                };
+            }
+            return new HttpResponseMessage
+            {
+                Content = new JsonContent(new
+                {
+                    success = true,
+                    message = ConstantManager.GET_LIST_STORE_SUCCESS,
+                    status = ConstantManager.STATUS_SUCCESS,
+                    data = stores
+                })
+            };
         }
 
         public HttpResponseMessage GetInfoStore(int storeId)
@@ -63,46 +103,30 @@ namespace BoardBooking.Controllers
             }
             return new HttpResponseMessage { };
         }
-
+        
         public HttpResponseMessage GetListReviewStore(int storeId)
         {
-            var reviewApi = new tbReviewApi();
-            var review = reviewApi.Get().Where(q => q.SID == storeId).ToList(); 
-
+            throw new NotImplementedException();
         }
 
         public HttpResponseMessage GetListPromotion(int storeId)
         {
-
+            throw new NotImplementedException();
         }
 
         public HttpResponseMessage GetListSessionStore(int storeId, DateTime day)
         {
-
+            throw new NotImplementedException();
         }
 
-        public CreateNewCustmer()
+        public void CreateNewCustmer()
         {
-
+            throw new NotImplementedException();
         }
 
-        public CreateNewAppointment()
+        public void CreateNewAppointment()
         {
-
-        }
-
-        private static string GenerateToken(string CPhone)
-        {
-            var payload = CPhone + ":" + DateTime.Now.Ticks.ToString();
-
-            return JWT.Encode(payload, secretKey, JwsAlgorithm.HS256);
-        }
-
-        private string GetCustomerIdFromToken(string token)
-        {
-            string key = JWT.Decode(token, secretKey);
-            string[] parts = key.Split(new char[] { ':' });
-            return parts[0];
+            throw new NotImplementedException();
         }
     }
 }

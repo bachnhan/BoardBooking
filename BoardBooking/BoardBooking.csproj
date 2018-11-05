@@ -215,6 +215,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\API\Controller\MobileApi.cs" />
     <Compile Include="Controllers\API\JsonContent.cs" />
     <Compile Include="Controllers\API\Model\UserRoleModel.cs" />
     <Compile Include="Controllers\HomeController.cs" />
