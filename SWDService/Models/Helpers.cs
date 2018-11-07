@@ -10,6 +10,7 @@ namespace HmsService.Models
     {
         public const string PRIVATE_KEY = "BoardBookingApp";
         public const int STATUS_SUCCESS = 200;
+        public const int STATUS_FAIL = 400;
         public const string GET_FAIL = "Get fail.";
         public const string GET_SUCCESS = "Get success.";
         public const string GET_USER_ROLE_FAIL = "Get user role fail.";

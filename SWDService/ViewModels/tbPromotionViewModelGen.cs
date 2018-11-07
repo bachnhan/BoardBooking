@@ -14,7 +14,6 @@ namespace HmsService.ViewModels
     
     public partial class tbPromotionViewModel : SkyWeb.DatVM.Mvc.BaseEntityViewModel<HmsService.Models.Entities.tbPromotion>
     {
-    	
     			public virtual int PID { get; set; }
     			public virtual Nullable<int> SID { get; set; }
     			public virtual string PImage { get; set; }

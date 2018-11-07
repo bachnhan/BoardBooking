@@ -8,6 +8,7 @@ using HmsService.Models;
 using HmsService.Sdk;
 using BoardBooking.Controllers.API;
 using BoardBooking.Controllers.API.Controller;
+using HmsService.ViewModels;
 
 namespace BoardBooking.Controllers
 {
@@ -43,7 +44,7 @@ namespace BoardBooking.Controllers
                 return new HttpResponseMessage
                 {
                     Content = new JsonContent(new {
-                        success = true,
+                        success = false,
                         message = ConstantManager.GET_USER_ROLE_FAIL,
                         status = ConstantManager.STATUS_SUCCESS
                     })
@@ -61,6 +62,36 @@ namespace BoardBooking.Controllers
         }
 
         [HttpGet]
+        [Route("api/get-user")]
+        public HttpResponseMessage GetInfoUser(string phone, string password)
+        {
+            var customerApi = new tbCustomerApi();
+            var customer = customerApi.Get().Where(q => q.CPhone == phone && q.CPassword == password).FirstOrDefault();
+            if(customer == null)
+            {
+                return new HttpResponseMessage
+                {
+                    Content = new JsonContent(new
+                    {
+                        success = false,
+                        message = ConstantManager.GET_FAIL, 
+                        status = ConstantManager.STATUS_FAIL
+                    })
+                };
+            }
+            return new HttpResponseMessage
+            {
+                Content = new JsonContent(new
+                {
+                    success = true, 
+                    message = ConstantManager.GET_SUCCESS, 
+                    status = ConstantManager.STATUS_SUCCESS,
+                    data = customer
+                })
+            };
+        }
+
+        [HttpGet]
         [Route("api/list-store")]
         public HttpResponseMessage GetListStore()
         {
@@ -72,9 +103,9 @@ namespace BoardBooking.Controllers
                 {
                     Content = new JsonContent(new
                     {
-                        success = true,
+                        success = false,
                         message = ConstantManager.GET_LIST_STORE_FAIL,
-                        status = ConstantManager.STATUS_SUCCESS
+                        status = ConstantManager.STATUS_FAIL,
                     })
                 };
             }
@@ -90,37 +121,133 @@ namespace BoardBooking.Controllers
             };
         }
 
+        [HttpGet]
+        [Route("api/info-store")]
         public HttpResponseMessage GetInfoStore(int storeId)
         {
             var storeApi = new tbStoreApi();
             var store = storeApi.Get().Where(q => q.SID == storeId).FirstOrDefault(); 
-            if (store != null)
+            if (store == null)
             {
                 return new HttpResponseMessage
                 {
-                    Content = new JsonContent(store)
+                    Content = new JsonContent(new
+                    {
+                        success = false,
+                        message = ConstantManager.GET_FAIL,
+                        status = ConstantManager.STATUS_FAIL, 
+                    })
                 };
             }
-            return new HttpResponseMessage { };
+            return new HttpResponseMessage
+            {
+                Content = new JsonContent(new
+                {
+                    success = true, 
+                    message = ConstantManager.GET_SUCCESS, 
+                    status = ConstantManager.STATUS_SUCCESS, 
+                    data = store
+                })
+            };
         }
         
+        [HttpGet]
+        [Route("api/list-review")]
         public HttpResponseMessage GetListReviewStore(int storeId)
         {
-            throw new NotImplementedException();
+            var reviewApi = new tbReviewApi();
+            var review = reviewApi.Get().Where(q => q.SID == storeId).ToList(); 
+            if (review == null)
+            {
+                return new HttpResponseMessage
+                {
+                    Content = new JsonContent(new
+                    {
+                        success = false,
+                        message = ConstantManager.GET_FAIL, 
+                        status = ConstantManager.STATUS_FAIL,
+                    })
+                };
+            }
+            return new HttpResponseMessage
+            {
+                Content = new JsonContent(new
+                {
+                    success = true, 
+                    message = ConstantManager.GET_SUCCESS, 
+                    status = ConstantManager.STATUS_SUCCESS,
+                    data = review
+                })
+            };
         }
 
-        public HttpResponseMessage GetListPromotion(int storeId)
+        [HttpGet]
+        [Route("api/list-promotion")]
+        public HttpResponseMessage GetListPromotion()
         {
-            throw new NotImplementedException();
+            var promotionApi = new tbPromotionApi();
+            var promotion = promotionApi.Get().ToList();
+            if (promotion == null)
+            {
+                return new HttpResponseMessage
+                {
+                    Content = new JsonContent(new
+                    {
+                        success = false,
+                        message = ConstantManager.GET_FAIL, 
+                        status = ConstantManager.STATUS_FAIL,
+                    })
+                };
+            }
+            return new HttpResponseMessage
+            {
+                Content = new JsonContent(new
+                {
+                    success = true, 
+                    message = ConstantManager.GET_SUCCESS, 
+                    status = ConstantManager.STATUS_SUCCESS, 
+                    data = promotion
+                })
+            };
         }
 
-        public HttpResponseMessage GetListSessionStore(int storeId, DateTime day)
+        [HttpGet]
+        [Route("api/list-session-inrange")]
+        public HttpResponseMessage GetListSessionStoreInRange(int storeId, DateTime day)
         {
-            throw new NotImplementedException();
+            var sessionApi = new tbSessionApi();
+            var session = sessionApi.Get().Where(q => q.SID == storeId && q.DayCreate >= day).ToList(); 
+            if (session == null)
+            {
+                return new HttpResponseMessage
+                {
+                    Content = new JsonContent(new
+                    {
+                        success = false, 
+                        message = ConstantManager.GET_FAIL,
+                        status = ConstantManager.STATUS_FAIL
+                    })
+                };
+            }
+            return new HttpResponseMessage
+            {
+                Content = new JsonContent(new
+                {
+                    success = true, 
+                    message = ConstantManager.GET_SUCCESS, 
+                    status = ConstantManager.STATUS_SUCCESS, 
+                    data = session
+                })
+            };
         }
 
-        public void CreateNewCustmer()
+        [HttpPost]
+        [Route("api/customer")]
+        public void CreateNewCustmer(tbCustomerViewModel customer)
         {
+            var customerApi = new tbCustomerApi();
+            var result = customerApi.CreateCustomer(customer);
+            
             throw new NotImplementedException();
         }
 
@@ -128,5 +255,76 @@ namespace BoardBooking.Controllers
         {
             throw new NotImplementedException();
         }
+
+
+        // manager api 
+        [HttpGet]
+        [Route("api/get-store")]
+        public HttpResponseMessage GetStoreIdLoginManager(string phone, string password)
+        {
+            var customerApi = new tbCustomerApi();
+            var storeApi = new tbStoreApi();
+            var customer = customerApi.Get().Where(q => q.CPhone == phone && q.CPassword == password).FirstOrDefault();
+            var checkStore = storeApi.Get().Where(q => q.CPhone == phone).FirstOrDefault();
+            if (customer == null)
+            {
+                return new HttpResponseMessage
+                {
+                    Content = new JsonContent(new
+                    {
+                        success = false, 
+                        message = ConstantManager.GET_FAIL, 
+                        status = ConstantManager.STATUS_FAIL
+                    })
+                };
+            } else if (checkStore == null)
+            {
+                return new HttpResponseMessage
+                {
+                    Content = new JsonContent(new
+                    {
+                        success = false,
+                        message = ConstantManager.GET_FAIL,
+                        status = ConstantManager.STATUS_FAIL
+                    })
+                };
+            }
+            return new HttpResponseMessage
+            {
+                Content = new JsonContent(new
+                {
+                    success = true, 
+                    message = ConstantManager.GET_SUCCESS, 
+                    status = ConstantManager.STATUS_SUCCESS, 
+                    data = checkStore
+                })
+            };  
+        }
+
+        [HttpGet]
+        [Route("api/get-appoinment-store")]
+        public HttpResponseMessage GetListAppointmentForStoreInRange(int storeId, DateTime day)
+        {
+            var appointmentApi = new tbAppointmentApi();
+            var sessionApi = new tbSessionApi();
+            var sessions = sessionApi.Get().Where(q => q.SID == storeId && q.DayCreate >= day).ToList();
+            List<tbAppointmentViewModel> result = new List<tbAppointmentViewModel>();
+            foreach (var item in sessions)
+            {
+                var appointments = appointmentApi.Get().Where(q => q.SsID == item.SsID).ToList();
+                result.AddRange(appointments);
+            } 
+            return new HttpResponseMessage
+            {
+                Content = new JsonContent(new
+                {
+                    success = false, 
+                    message = ConstantManager.GET_FAIL, 
+                    status = ConstantManager.STATUS_FAIL,
+                    data = result
+                })
+            };
+        }
+
     }
 }
