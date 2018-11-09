@@ -7,9 +7,10 @@ using System.Threading.Tasks;
 
 namespace HmsService.Sdk
 {
-    public partial class tbCustomerApi
+    public partial class tbPromotionApi
     {
-        public bool CreateCustomer(tbCustomerViewModel model) {
+        public bool CreatePromotion(tbPromotionViewModel model)
+        {
             try
             {
                 var entity = model.ToEntity();
@@ -21,7 +22,7 @@ namespace HmsService.Sdk
             catch
             {
                 return false;
-            }  
+            }
         }
     }
 }

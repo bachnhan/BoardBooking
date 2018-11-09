@@ -1,15 +1,19 @@
-﻿using HmsService.ViewModels;
+﻿using HmsService.Models.Entities;
+using HmsService.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace HmsService.Sdk
 {
-    public partial class tbCustomerApi
+    public partial class tbReviewApi
     {
-        public bool CreateCustomer(tbCustomerViewModel model) {
+        public bool CreateReview(tbReviewViewModel model)
+        {
             try
             {
                 var entity = model.ToEntity();
@@ -21,7 +25,7 @@ namespace HmsService.Sdk
             catch
             {
                 return false;
-            }  
+            }
         }
     }
 }

@@ -283,6 +283,7 @@
     <Compile Include="Models\OperationStatus.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sdk\BaseSdkApi.cs" />
+    <Compile Include="Sdk\tbAppointmentApi.cs" />
     <Compile Include="Sdk\tbAppointmentApiGen.cs">
       <DependentUpon>Sdk.tt</DependentUpon>
     </Compile>
@@ -293,15 +294,18 @@
     <Compile Include="Sdk\tbCustomerApiGen.cs">
       <DependentUpon>Sdk.tt</DependentUpon>
     </Compile>
+    <Compile Include="Sdk\tbPromotionApi.cs" />
     <Compile Include="Sdk\tbPromotionApiGen.cs">
       <DependentUpon>Sdk.tt</DependentUpon>
     </Compile>
+    <Compile Include="Sdk\tbReviewApi.cs" />
     <Compile Include="Sdk\tbReviewApiGen.cs">
       <DependentUpon>Sdk.tt</DependentUpon>
     </Compile>
     <Compile Include="Sdk\tbRoleApiGen.cs">
       <DependentUpon>Sdk.tt</DependentUpon>
     </Compile>
+    <Compile Include="Sdk\tbSessionApi.cs" />
     <Compile Include="Sdk\tbSessionApiGen.cs">
       <DependentUpon>Sdk.tt</DependentUpon>
     </Compile>
@@ -316,6 +320,7 @@
     <Compile Include="ViewModels\tbAppointmentStatuViewModelGen.cs">
       <DependentUpon>ViewModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\tbAppointmentViewModel.cs" />
     <Compile Include="ViewModels\tbAppointmentViewModelGen.cs">
       <DependentUpon>ViewModel.tt</DependentUpon>
     </Compile>
@@ -323,15 +328,18 @@
     <Compile Include="ViewModels\tbCustomerViewModelGen.cs">
       <DependentUpon>ViewModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\tbPromotionViewModel.cs" />
     <Compile Include="ViewModels\tbPromotionViewModelGen.cs">
       <DependentUpon>ViewModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\tbReviewViewModel.cs" />
     <Compile Include="ViewModels\tbReviewViewModelGen.cs">
       <DependentUpon>ViewModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\tbRoleViewModelGen.cs">
       <DependentUpon>ViewModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\tbSessionViewModel.cs" />
     <Compile Include="ViewModels\tbSessionViewModelGen.cs">
       <DependentUpon>ViewModel.tt</DependentUpon>
     </Compile>

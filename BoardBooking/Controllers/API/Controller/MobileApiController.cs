@@ -12,7 +12,7 @@ using HmsService.ViewModels;
 
 namespace BoardBooking.Controllers
 {
-    public class MobileApiController : ApiController, MobileApi
+    public class MobileApiController : ApiController/*, MobileApi*/
     {
         static string secretKey = ConstantManager.PRIVATE_KEY;
         // GET: MobileApi
@@ -63,204 +63,126 @@ namespace BoardBooking.Controllers
 
         [HttpGet]
         [Route("api/get-user")]
-        public HttpResponseMessage GetInfoUser(string phone, string password)
+        public tbCustomerViewModel GetInfoUser(string phone, string password)
         {
             var customerApi = new tbCustomerApi();
             var customer = customerApi.Get().Where(q => q.CPhone == phone && q.CPassword == password).FirstOrDefault();
-            if(customer == null)
+            if (customer == null)
             {
-                return new HttpResponseMessage
-                {
-                    Content = new JsonContent(new
-                    {
-                        success = false,
-                        message = ConstantManager.GET_FAIL, 
-                        status = ConstantManager.STATUS_FAIL
-                    })
-                };
+                return customer;
             }
-            return new HttpResponseMessage
-            {
-                Content = new JsonContent(new
-                {
-                    success = true, 
-                    message = ConstantManager.GET_SUCCESS, 
-                    status = ConstantManager.STATUS_SUCCESS,
-                    data = customer
-                })
-            };
+            return null;
         }
 
         [HttpGet]
         [Route("api/list-store")]
-        public HttpResponseMessage GetListStore()
+        public List<tbStoreViewModel> GetListStore()
         {
             var storeApi = new tbStoreApi();
             var stores = storeApi.Get().ToList();
-            if (stores == null)
+            if (stores != null)
             {
-                return new HttpResponseMessage
-                {
-                    Content = new JsonContent(new
-                    {
-                        success = false,
-                        message = ConstantManager.GET_LIST_STORE_FAIL,
-                        status = ConstantManager.STATUS_FAIL,
-                    })
-                };
+                return stores;
             }
-            return new HttpResponseMessage
-            {
-                Content = new JsonContent(new
-                {
-                    success = true,
-                    message = ConstantManager.GET_LIST_STORE_SUCCESS,
-                    status = ConstantManager.STATUS_SUCCESS,
-                    data = stores
-                })
-            };
+            return null;
         }
 
         [HttpGet]
         [Route("api/info-store")]
-        public HttpResponseMessage GetInfoStore(int storeId)
+        public tbStoreViewModel GetInfoStore(int storeId)
         {
             var storeApi = new tbStoreApi();
             var store = storeApi.Get().Where(q => q.SID == storeId).FirstOrDefault(); 
             if (store == null)
             {
-                return new HttpResponseMessage
-                {
-                    Content = new JsonContent(new
-                    {
-                        success = false,
-                        message = ConstantManager.GET_FAIL,
-                        status = ConstantManager.STATUS_FAIL, 
-                    })
-                };
+                return null;
             }
-            return new HttpResponseMessage
-            {
-                Content = new JsonContent(new
-                {
-                    success = true, 
-                    message = ConstantManager.GET_SUCCESS, 
-                    status = ConstantManager.STATUS_SUCCESS, 
-                    data = store
-                })
-            };
+            return store;
         }
         
         [HttpGet]
         [Route("api/list-review")]
-        public HttpResponseMessage GetListReviewStore(int storeId)
+        public List<tbReviewViewModel> GetListReviewStore(int storeId)
         {
             var reviewApi = new tbReviewApi();
-            var review = reviewApi.Get().Where(q => q.SID == storeId).ToList(); 
-            if (review == null)
+            var reviews = reviewApi.Get().Where(q => q.SID == storeId).ToList(); 
+            if (reviews == null)
             {
-                return new HttpResponseMessage
-                {
-                    Content = new JsonContent(new
-                    {
-                        success = false,
-                        message = ConstantManager.GET_FAIL, 
-                        status = ConstantManager.STATUS_FAIL,
-                    })
-                };
+                return null;
             }
-            return new HttpResponseMessage
-            {
-                Content = new JsonContent(new
-                {
-                    success = true, 
-                    message = ConstantManager.GET_SUCCESS, 
-                    status = ConstantManager.STATUS_SUCCESS,
-                    data = review
-                })
-            };
+            return reviews;
         }
 
         [HttpGet]
         [Route("api/list-promotion")]
-        public HttpResponseMessage GetListPromotion()
+        public List<tbPromotionViewModel> GetListPromotion()
         {
-            var promotionApi = new tbPromotionApi();
-            var promotion = promotionApi.Get().ToList();
-            if (promotion == null)
-            {
-                return new HttpResponseMessage
-                {
-                    Content = new JsonContent(new
-                    {
-                        success = false,
-                        message = ConstantManager.GET_FAIL, 
-                        status = ConstantManager.STATUS_FAIL,
-                    })
-                };
-            }
-            return new HttpResponseMessage
-            {
-                Content = new JsonContent(new
-                {
-                    success = true, 
-                    message = ConstantManager.GET_SUCCESS, 
-                    status = ConstantManager.STATUS_SUCCESS, 
-                    data = promotion
-                })
-            };
+            var promotionApi = new tbPromotionApi(); 
+            var promotions = promotionApi.Get().ToList();
+            return promotions;
         }
 
         [HttpGet]
         [Route("api/list-session-inrange")]
-        public HttpResponseMessage GetListSessionStoreInRange(int storeId, DateTime day)
+        public List<tbSessionViewModel> GetListSessionStoreInRange(int storeId, DateTime day)
         {
             var sessionApi = new tbSessionApi();
-            var session = sessionApi.Get().Where(q => q.SID == storeId && q.DayCreate >= day).ToList(); 
-            if (session == null)
+            var sessions = sessionApi.Get().Where(q => q.SID == storeId && q.DayCreate >= day).ToList(); 
+            if (sessions == null)
             {
-                return new HttpResponseMessage
-                {
-                    Content = new JsonContent(new
-                    {
-                        success = false, 
-                        message = ConstantManager.GET_FAIL,
-                        status = ConstantManager.STATUS_FAIL
-                    })
-                };
+                return null;
             }
-            return new HttpResponseMessage
-            {
-                Content = new JsonContent(new
-                {
-                    success = true, 
-                    message = ConstantManager.GET_SUCCESS, 
-                    status = ConstantManager.STATUS_SUCCESS, 
-                    data = session
-                })
-            };
+            return sessions;
         }
 
         [HttpPost]
         [Route("api/customer")]
-        public void CreateNewCustmer(tbCustomerViewModel customer)
+        public bool CreateNewCustmer(tbCustomerViewModel customer)
         {
             var customerApi = new tbCustomerApi();
-            var result = customerApi.CreateCustomer(customer);
-            
-            throw new NotImplementedException();
+            var check = customerApi.Get().Where(q => q.CPhone == customer.CPhone).FirstOrDefault();
+            if (check != null)
+            {
+                var result = customerApi.CreateCustomer(customer);
+                if (result)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
-        public void CreateNewAppointment()
+        [HttpPost]
+        [Route("api/create-appointment")]
+        public bool CreateNewAppointment(tbAppointmentViewModel model)
         {
-            throw new NotImplementedException();
+            var appointmentApi = new tbAppointmentApi();
+            var sessionApi = new tbSessionApi();
+            var check = sessionApi.Get().Where(q => q.SsID == model.SsID && q.Capital >= model.ACapital).FirstOrDefault();
+            if (check != null)
+            {
+                var result = appointmentApi.CreateAppointment(model);
+                check.Capital = check.Capital - model.ACapital; ;
+                sessionApi.UpdateSesion(check);
+                return true;
+            }
+            return false;
         }
 
+        [HttpPost]
+        [Route("api/create-review")]
+        public bool CreateNewReview(tbReviewViewModel model)
+        {
+            var reviewApi = new tbReviewApi();
+            var check = reviewApi.CreateReview(model);
+            if (check) return true;
+            return false; 
+        }
 
         // manager api 
         [HttpGet]
         [Route("api/get-store")]
-        public HttpResponseMessage GetStoreIdLoginManager(string phone, string password)
+        public tbStoreViewModel GetStoreIdLoginManager(string phone, string password)
         {
             var customerApi = new tbCustomerApi();
             var storeApi = new tbStoreApi();
@@ -268,63 +190,83 @@ namespace BoardBooking.Controllers
             var checkStore = storeApi.Get().Where(q => q.CPhone == phone).FirstOrDefault();
             if (customer == null)
             {
-                return new HttpResponseMessage
-                {
-                    Content = new JsonContent(new
-                    {
-                        success = false, 
-                        message = ConstantManager.GET_FAIL, 
-                        status = ConstantManager.STATUS_FAIL
-                    })
-                };
+                return null;
             } else if (checkStore == null)
             {
-                return new HttpResponseMessage
-                {
-                    Content = new JsonContent(new
-                    {
-                        success = false,
-                        message = ConstantManager.GET_FAIL,
-                        status = ConstantManager.STATUS_FAIL
-                    })
-                };
+                return null;
             }
-            return new HttpResponseMessage
-            {
-                Content = new JsonContent(new
-                {
-                    success = true, 
-                    message = ConstantManager.GET_SUCCESS, 
-                    status = ConstantManager.STATUS_SUCCESS, 
-                    data = checkStore
-                })
-            };  
+            return checkStore;
         }
 
         [HttpGet]
         [Route("api/get-appoinment-store")]
-        public HttpResponseMessage GetListAppointmentForStoreInRange(int storeId, DateTime day)
+        public List<tbAppointmentViewModel> GetListAppointmentFromToday(int storeId)
         {
             var appointmentApi = new tbAppointmentApi();
             var sessionApi = new tbSessionApi();
-            var sessions = sessionApi.Get().Where(q => q.SID == storeId && q.DayCreate >= day).ToList();
+            DateTime now = DateTime.Now;
+            var sessions = sessionApi.Get().Where(q => q.SID == storeId && q.DayCreate >= now).ToList();
             List<tbAppointmentViewModel> result = new List<tbAppointmentViewModel>();
             foreach (var item in sessions)
             {
                 var appointments = appointmentApi.Get().Where(q => q.SsID == item.SsID).ToList();
                 result.AddRange(appointments);
-            } 
-            return new HttpResponseMessage
-            {
-                Content = new JsonContent(new
-                {
-                    success = false, 
-                    message = ConstantManager.GET_FAIL, 
-                    status = ConstantManager.STATUS_FAIL,
-                    data = result
-                })
-            };
+            }
+            return result;
         }
 
+        [HttpGet]
+        [Route("api/get_session")]
+        public List<tbSessionViewModel> GetListSessionFromToday(int storeId)
+        {
+            var sessionApi = new tbSessionApi();
+            DateTime now = DateTime.Now;
+            var listSession = sessionApi.Get().Where(q => q.SID == storeId && q.DayCreate >= now).ToList();
+            return listSession;
+        }
+
+        [HttpPost]
+        [Route("api/create-session")]
+        public bool CreateSessionByManager(tbSessionViewModel model)
+        {
+            var sessionApi = new tbSessionApi();
+            var check = sessionApi.Get().Where(q => q.DayCreate == model.DayCreate).FirstOrDefault();
+            if (check == null)
+            {
+                sessionApi.CreateSession(model);
+                return true;
+            }
+            return false; 
+        }
+
+        [HttpGet]
+        [Route("api/get-promotion-store")]
+        public List<tbPromotionViewModel> GetListPromotionOfStore(int storeId)
+        {
+            var promotionApi = new tbPromotionApi();
+            DateTime now = DateTime.Now;
+            var promotions = promotionApi.Get().Where(q => q.SID == storeId).ToList();
+            return promotions;
+        }
+
+        [HttpPost]
+        [Route("api/create-promotion")]
+        public bool CreatePromotion(tbPromotionViewModel model)
+        {
+            var promotionApi = new tbPromotionApi();
+            var check = promotionApi.CreatePromotion(model);
+            if (check) return true;
+            return false;
+        }
+
+        [HttpPost]
+        [Route("apit/update-appointment-status")]
+        public bool UpdateAppointmentStatus(tbAppointmentViewModel model)
+        {
+            var appointmentApi = new tbAppointmentApi();
+            var check = appointmentApi.UpdateAppointment(model);
+            if (check) return true;
+            return false; 
+        }
     }
 }
